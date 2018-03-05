@@ -77,7 +77,7 @@
                 .html(html)
                 .build()
             );
-
+            document.querySelector('#modal-box').scrollTop = 0;
             afterRendering();
         }
     }

@@ -135,6 +135,7 @@ class ClassProvider implements ServiceProviderInterface
             'SubtaskPagination',
             'TaskPagination',
             'UserPagination',
+            'WebNotificationPagination',
         ),
         'Core' => array(
             'DateParser',

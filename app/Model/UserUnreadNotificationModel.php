@@ -63,7 +63,7 @@ class UserUnreadNotificationModel extends Base
      */
     public function getAll($user_id)
     {
-        $events = $this->db->table(self::TABLE)->eq('user_id', $user_id)->asc('date_creation')->findAll();
+        $events = $this->db->table(self::TABLE)->eq('user_id', $user_id)->desc('date_creation')->findAll();
 
         foreach ($events as &$event) {
             $this->unserialize($event);
@@ -107,6 +107,30 @@ class UserUnreadNotificationModel extends Base
     public function hasNotifications($user_id)
     {
         return $this->db->table(self::TABLE)->eq('user_id', $user_id)->exists();
+    }
+
+    /**
+     * Return true if the user as unread notifications
+     *
+     * @access public
+     * @param  integer $user_id
+     * @return boolean
+     */
+    public function countNotifications($user_id)
+    {
+        return count($this->getAll($user_id));
+    }
+
+    /**
+     * Get query to fetch all unread notification
+     *
+     * @access public
+     * @return \PicoDb\Table
+     */
+    public function getQuery($user_id)
+    {
+        $events = $this->db->table(self::TABLE)->eq('user_id', $user_id);
+        return $events;
     }
 
     private function unserialize(&$event)

@@ -35,6 +35,18 @@ class UserHelper extends Base
     }
 
     /**
+     * Return the number of unread notifications of the logged user
+     *
+     * @access public
+     * @return boolean
+     */
+    public function countNotifications()
+    {
+        #return false;
+        return $this->userUnreadNotificationModel->countNotifications($this->userSession->getId());
+    }
+
+    /**
      * Get initials from a user
      *
      * @access public

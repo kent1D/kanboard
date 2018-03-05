@@ -1,7 +1,8 @@
 <?php
 
 namespace Kanboard\Controller;
-
+use Kanboard\Filter\UserUnreadNotificationFilter;
+use Kanboard\Model\UserUnreadNotificationModel;
 /**
  * Web notification controller
  *
@@ -18,12 +19,12 @@ class WebNotificationController extends BaseController
     public function show()
     {
         $user = $this->getUser();
-        $notifications = $this->userUnreadNotificationModel->getAll($user['id']);
+        $paginator = $this->webNotificationPagination->getListingPaginator($user['id']);
 
         $this->response->html($this->template->render('web_notification/show', array(
-            'notifications'    => $notifications,
-            'nb_notifications' => count($notifications),
+            'nb_notifications' => $paginator->getTotal(),
             'user'             => $user,
+            'paginator'        => $paginator
         )));
     }
 
